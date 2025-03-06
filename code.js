@@ -68,12 +68,63 @@ function updateNoteNumbers() {
 
 async function loadNotes(){
   try{
-
+    const response = await fetch('http://localhost:3001/');
+    if (!response.ok){
+      throw new Error('Ошибка при загрузке заметок');
+    }
+    const notes = await response.json();
+    notes.forEach(note => {
+      addNoteToDOM(note.title, note.text, note.id);
+    });
   }
   catch (error){
     console.error('Ошибка', error);
   }
 }
+
+function addNoteToDOM(title, text, id){
+  const note = document.createElement('div');
+  note.classList.add('note');
+  note.dataset.id = id;
+
+  const noteTitleElement = document.createElement('p');
+  noteTitleElement.classList.add('note-title');
+  noteTitleElement.textContent = title;
+
+  const noteTextElement = document.createElement('p');
+  noteTextElement.classList.add('note-text');
+  noteTextElement.textContent = text;
+
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Удалить';
+  deleteButton.addEventListener('click', async () =>{
+    await deleteNote(id);
+    note.remove();
+  });
+  note.appendChild(noteTitleElement);
+  note.appendChild(noteTextElement);
+  note.appendChild(deleteButton);
+
+  document.getElementById('notesContainer').appendChild(note);
+}
+
+document.getElementById('addNoteButton').addEventListener('click', async () => {
+  const noteTitleInput = document.getElementById('noteTitleInput').value;
+  const noteTextInput = document.getElementById('noteTextInput').value;
+
+  if (noteTextInput === "" || noteTitleInput === "") {
+    alert("Введите пожалуйста текст для заметки!");
+    return;
+  }
+
+  const newNote = await saveNote(noteTitleInput, noteTextInput);
+  if (newNote) {
+    addNoteToDOM(newNote.title, newNote.text, newNote.id);
+    document.getElementById('noteTextInput').value = '';
+    document.getElementById('noteTitleInput').value = '';
+  }
+});
+
 
 document.getElementById('addNoteButton').addEventListener('click', addNoteFunc);
 document.getElementById('deleteSelectedButton').addEventListener('click', deleteSelectedNote);
