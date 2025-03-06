@@ -1,0 +1,82 @@
+body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 10fr;
+  grid-template-areas: 
+    "h h"
+    "m c";
+  height: 100vh;
+}
+
+.header {
+  grid-area: h;
+  background-color: rgb(239, 240, 240);
+  background: linear-gradient(300deg, #808181, #ffffff);
+  padding: 20px;
+  border-bottom: 3px solid #808181;
+}
+
+.menu {
+  grid-area: m;
+  background-color: rgb(253, 253, 253);
+  box-shadow: 0 4px 8px rgba(216, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.content {
+  grid-area: c;
+  background-color: rgb(63, 63, 63);
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  margin-top: 7px;
+}
+
+.functions p {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.functions {
+  display: flex;
+  flex-direction: column;
+}
+
+.note {
+  background-color: rgb(216, 216, 216);
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.note-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.note-text {
+  font-size: 1em;
+}
+
+.functions button {
+  margin: 10px;
+}
+
+.pop{
+  color: black;
+}
+
+
+.note-checkbox {
+  margin-right: 10px;
+}
+.note.selected {
+  background-color: #fc6868; /* Цвет выделения */
+}
