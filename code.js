@@ -66,5 +66,14 @@ function updateNoteNumbers() {
   });
 }
 
+async function loadNotes(){
+  try{
+
+  }
+  catch (error){
+    console.error('Ошибка', error);
+  }
+}
+
 document.getElementById('addNoteButton').addEventListener('click', addNoteFunc);
 document.getElementById('deleteSelectedButton').addEventListener('click', deleteSelectedNote);
